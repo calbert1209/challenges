@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import fetch from 'isomorphic-fetch';
 import styled from 'styled-components';
-import { DonationOptionCard } from './components/DonationOptionCard.jsx';
+import { DonationOptionCard } from './DonationOptionCard.jsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { actions } from './actions';
+import { actions } from '../actions';
 
 const Message = styled.p`
   color: red;
@@ -24,10 +24,7 @@ export const App = () => {
       .then((resp) => {
         return resp.json();
       })
-      .then(setCharities)
-      .catch((e) => {
-        dispatch(actions.updateMessage(e));
-      });
+      .then(setCharities);
 
     fetch('http://localhost:3001/payments')
       .then((resp) => {
@@ -35,9 +32,6 @@ export const App = () => {
       })
       .then((payments) => {
         dispatch(actions.updateDonationTotal(payments));
-      })
-      .catch((e) => {
-        dispatch(actions.updateMessage(e));
       });
   }, []);
 
