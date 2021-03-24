@@ -2,26 +2,24 @@ import React from 'react';
 import { render } from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import App from './App';
+import {App} from './App';
+import {actionTypes} from './actions';
 
-const store = createStore(function (state, action) {
+const store = createStore((state, action) => {
   const _state =
     state == null
       ? {
-          donate: 0,
+          donationTotal: 0,
           message: '',
         }
       : state;
 
   switch (action.type) {
-    case 'UPDATE_TOTAL_DONATE':
-      return Object.assign({}, _state, {
-        donate: _state.donate + action.amount,
-      });
-    case 'UPDATE_MESSAGE':
-      return Object.assign({}, _state, {
-        message: action.message,
-      });
+    case actionTypes.updateDonationTotal:
+      const donationTotal = _state.donationTotal + action.donationTotal;
+      return {..._state, donationTotal};
+    case actionTypes.updateMessage:
+      return {..._state, message: action.message};
 
     default:
       return _state;

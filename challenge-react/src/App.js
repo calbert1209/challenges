@@ -1,111 +1,55 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import fetch from 'isomorphic-fetch';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
-import { summaryDonations } from './helpers';
+import { DonationOptionCard } from './components/DonationOptionCard';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions } from './actions';
 
-const Card = styled.div`
-  margin: 10px;
-  border: 1px solid #ccc;
+const Message = styled.p`
+  color: red;
+  margin: 1em 0;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center;
 `;
 
-export default connect((state) => state)(
-  class App extends Component {
-    state = {
-      charities: [],
-      selectedAmount: 10,
-    };
+export const App = () => {
+  const dispatch = useDispatch();
+  const { message, donationTotal } = useSelector((s) => s);
 
-    componentDidMount() {
-      const self = this;
-      fetch('http://localhost:3001/charities')
-        .then(function (resp) {
-          return resp.json();
-        })
-        .then(function (data) {
-          self.setState({ charities: data });
-        });
+  const [charities, setCharities] = useState([]);
 
-      fetch('http://localhost:3001/payments')
-        .then(function (resp) {
-          return resp.json();
-        })
-        .then(function (data) {
-          self.props.dispatch({
-            type: 'UPDATE_TOTAL_DONATE',
-            amount: summaryDonations(data.map((item) => item.amount)),
-          });
-        });
-    }
-
-    render() {
-      const self = this;
-      const cards = this.state.charities.map(function (item, i) {
-        const payments = [10, 20, 50, 100, 500].map((amount, j) => (
-          <label key={j}>
-            <input
-              type="radio"
-              name="payment"
-              onClick={function () {
-                self.setState({ selectedAmount: amount });
-              }}
-            />
-            {amount}
-          </label>
-        ));
-
-        return (
-          <Card key={i}>
-            <p>{item.name}</p>
-            {payments}
-            <button
-              onClick={handlePay.call(
-                self,
-                item.id,
-                self.state.selectedAmount,
-                item.currency
-              )}
-            >
-              Pay
-            </button>
-          </Card>
-        );
+  useEffect(() => {
+    fetch('http://localhost:3001/charities')
+      .then((resp) => {
+        return resp.json();
+      })
+      .then(setCharities)
+      .catch((e) => {
+        dispatch(actions.updateMessage(e));
       });
 
-      const style = {
-        color: 'red',
-        margin: '1em 0',
-        fontWeight: 'bold',
-        fontSize: '16px',
-        textAlign: 'center',
-      };
+    fetch('http://localhost:3001/payments')
+      .then((resp) => {
+        return resp.json();
+      })
+      .then((payments) => {
+        dispatch(actions.updateDonationTotal(payments));
+      })
+      .catch((e) => {
+        dispatch(actions.updateMessage(e));
+      });
+  }, []);
 
-      const donate = this.props.donate;
-      const message = this.props.message;
-
-      return (
-        <div>
-          <h1>Tamboon React</h1>
-          <p>All donations: {donate}</p>
-          <p style={style}>{message}</p>
-          {cards}
-        </div>
-      );
-    }
-  }
-);
-
-/**
- * Handle pay button
- * 
- * @param {*} The charities Id
- * @param {*} amount The amount was selected
- * @param {*} currency The currency
- * 
- * @example
- * fetch('http://localhost:3001/payments', {
-      method: 'POST',
-      body: `{ "charitiesId": ${id}, "amount": ${amount}, "currency": "${currency}" }`,
-    })
- */
-function handlePay(id, amount, currency) {}
+  return (
+    <div>
+      <h1>Tamboon React</h1>
+      <p>All donations: {donationTotal}</p>
+      {message && <Message>{message}</Message>}
+      {charities.length > 0 &&
+        charities.map(function (charity, i) {
+          return <DonationOptionCard key={charity.id} option={charity} />;
+        })}
+    </div>
+  );
+};
