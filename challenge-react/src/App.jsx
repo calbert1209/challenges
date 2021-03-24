@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import fetch from 'isomorphic-fetch';
 import styled from 'styled-components';
-import { DonationOptionCard } from './components/DonationOptionCard';
+import { DonationOptionCard } from './components/DonationOptionCard.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from './actions';
 
