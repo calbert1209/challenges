@@ -1,7 +1,9 @@
-import { summaryDonations } from '../helpers';
+import { sum } from '../helpers';
 
-describe('helpers', function () {
-  test('`summaryDonations` should calculate donations correctly', function () {
-    expect(summaryDonations([1, 2, 3, 4])).toEqual(11);
+describe('helpers', () => {
+  describe('sum', () => {
+    test('given an array of numbers, should return their sum', () => {
+      expect(sum([1, 2, 3, 4])).toEqual(10);
+    });
   });
 });

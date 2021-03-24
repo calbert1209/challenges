@@ -47,9 +47,9 @@ export const App = () => {
       <p>All donations: {donationTotal}</p>
       {message && <Message>{message}</Message>}
       {charities.length > 0 &&
-        charities.map(function (charity, i) {
-          return <DonationOptionCard key={charity.id} option={charity} />;
-        })}
+        charities.map((charity) => (
+          <DonationOptionCard key={charity.id} option={charity} />
+        ))}
     </div>
   );
 };

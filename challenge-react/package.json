@@ -10,7 +10,9 @@
     "server": "json-server --watch db.json --port 3001",
     "client": "webpack serve",
     "test": "jest",
-    "fmt": "yarn prettier -w ./src/**/*.{js,jsx}"
+    "shallow": "yarn prettier -w ./src/*.{js,jsx}",
+    "deep": "yarn prettier -w ./src/**/*.{js,jsx}",
+    "fmt": "yarn shallow && yarn deep"
   },
   "dependencies": {
     "isomorphic-fetch": "^3.0.0",
