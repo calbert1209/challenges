@@ -1,16 +1,29 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import styled from 'styled-components';
 import { handlePay } from '../helpers';
-
-const CardStyle = styled.div`
-  margin: 10px;
-  border: 1px solid #ccc;
-`;
 
 const kPaymentAmounts = [10, 20, 50, 100, 500];
 
-export const DonationOptionCard = ({ option }) => {
+export const DonationOptionCardFront = ({ option }) => {
+  const onClickPay = () => console.log('donate clicked');
+
+  const style = {
+    backgroundImage: `url(./images/${option.image})`,
+  };
+  return (
+    <div className="donationOptionCardFront" style={style}>
+      <div className="cardFrontFooter">
+        <div>{option.name}</div>
+        <button className="donateButton" onClick={onClickPay}>
+          {/* TODO: l10n */}
+          {'Donate'}
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export const DonationOptionCardObverse = ({ option }) => {
   const dispatch = useDispatch();
   const [paymentAmount, setPaymentAmount] = useState(kPaymentAmounts[0]);
   const onClickPay = useCallback(() => {
@@ -18,7 +31,7 @@ export const DonationOptionCard = ({ option }) => {
   }, [option.id, option.currency, paymentAmount]);
 
   return (
-    <CardStyle>
+    <div className="donationOptionCard">
       <div>{option.name}</div>
       {kPaymentAmounts.map((amount, i) => (
         <PaymentAmountOption
@@ -29,9 +42,9 @@ export const DonationOptionCard = ({ option }) => {
       ))}
       <button onClick={onClickPay}>
         {/* TODO: l10n */}
-        'Pay'
+        {'Pay'}
       </button>
-    </CardStyle>
+    </div>
   );
 };
 
