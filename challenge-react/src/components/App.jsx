@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import fetch from 'isomorphic-fetch';
 import styled from 'styled-components';
-import { DonationOptionCardFront } from './DonationOptionCard.jsx';
+import { DonationOptionCard } from './DonationOptionCard.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../actions';
 
@@ -48,7 +48,7 @@ export const App = () => {
       <div className="cardGrid">
         {charities.length > 0 &&
           charities.map((charity) => (
-            <DonationOptionCardFront key={charity.id} option={charity} />
+            <DonationOptionCard key={charity.id} option={charity} />
           ))}
       </div>
     </div>
