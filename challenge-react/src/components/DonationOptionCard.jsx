@@ -34,13 +34,21 @@ export const DonationOptionCard = ({ option }) => {
             {/* TODO: l10n */}
             {`${'Select the amount to donate'} (${option.currency})`}
           </div>
-          {kPaymentAmounts.map((amount, i) => (
-            <PaymentAmountOption
-              key={amount}
-              amount={amount}
-              onClick={() => {}}
-            />
-          ))}
+          <div className="paymentOptions">
+            {kPaymentAmounts.map((amount, i) => (
+              <PaymentAmountOption
+                key={amount}
+                amount={amount}
+                onClick={() => {}}
+              />
+            ))}
+          </div>
+          <div className="paymentActionButtonContainer">
+            <button className="payButton" onClick={() => {}}>
+              {/* TODO: l10n */}
+              {'Pay'}
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -71,9 +79,9 @@ const CloseButton = ({ onClick, className, fill = '#000000', opacity = 1 }) => {
 
 const PaymentAmountOption = ({ amount, onClick }) => {
   return (
-    <label>
+    <label className="paymentAmount">
       <input type="radio" name="payment" onClick={() => onClick(amount)} />
-      {amount}
+      <div className="paymentAmountText">{amount}</div>
     </label>
   );
 };

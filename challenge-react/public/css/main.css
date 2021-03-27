@@ -1,10 +1,21 @@
 :root {
   --sanSerifFamily: 'Kanit', Arial, Helvetica, sans-serif;
   --serifFamily: 'Taviraj', Georgia, 'Times New Roman', Times, serif;
-  --tamboonBlue: #1d51f3;
+  --tamboonOrchid: #9932cc;
+  --tamboonOrchidFocused: #ba55d3;
+  --tamboonPaleOrchid: #f5d6f4;
   --tamboonGray: #687389;
+  --shadowGray: rgba(128, 128, 128, 0.4);
   font-family: var(--sanSerifFamily);
   color: var(--tamboonGray);
+}
+
+html {
+  width: 100%;
+}
+
+body {
+  width: 100%;
 }
 
 .mainHeader {
@@ -12,18 +23,20 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 3vw;
 }
 
 .headerTitle {
   font-weight: 700;
-  font-size: 130%;
+  font-size: 170%;
   margin: 10px;
 }
 
 .headerDonationTotal {
   font-family: var(--sanSerifFamily);
   font-weight: 200;
-  color: var(--tamboonBlue);
+  font-size: 140%;
+  color: var(--tamboonOrchid);
 }
 
 .cardGrid {
@@ -31,14 +44,14 @@
   display: grid;
   grid-template-columns: repeat(2, var(--columnWidth));
   column-gap: 5vw;
-  margin: 5vw;
+  margin: 0 5vw;
 }
 
 @media (max-width: 700px) {
   .cardGrid {
-    --columnWidth: 60vw;
+    --columnWidth: 75vw;
     grid-template-columns: var(--columnWidth);
-    margin: 5vw 20vw;
+    margin: 0 10vw;
   }
 }
 
@@ -50,7 +63,7 @@
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  box-shadow: -1px 1px 5px rgba(128, 128, 128, 0.3);
+  box-shadow: -2px 2px 5px var(--shadowGray);
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   /* prevents background showing outside of overlay corners */
@@ -68,7 +81,7 @@
   border-bottom-right-radius: 4px;
   box-sizing: border-box;
   padding: 0 2vw;
-  transition: height 600ms ease-out;
+  transition: height 300ms ease-out;
 }
 
 .cardFrontOverlay[data-open='true'] {
@@ -87,15 +100,16 @@
 
 .charityName {
   margin-left: 6px;
+  font-size: 120%;
 }
 
 .donateButton {
   font-family: var(--sanSerifFamily);
   background-color: white;
-  border: 1px solid var(--tamboonBlue);
+  border: 1px solid var(--tamboonOrchid);
   border-radius: 2px;
   padding: 4px 8px;
-  color: var(--tamboonBlue);
+  color: var(--tamboonOrchid);
   cursor: pointer;
 }
 
@@ -115,9 +129,91 @@
   visibility: visible;
   height: max-content;
   opacity: 1;
-  transition: all 600ms ease-out 300ms;
+  transition: all 300ms ease-out 300ms;
 }
 
 .paymentAmountGuidance {
   margin: 12px 6px;
+}
+
+.paymentOptions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 6px 0 0;
+}
+
+.paymentAmount {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+}
+
+input[type='radio'] {
+  margin: 0 5px;
+}
+
+label {
+  margin-left: 10px;
+}
+
+label:first-child {
+  margin-left: unset;
+}
+
+.paymentActionButtonContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 20px 6px 0 0;
+}
+
+.payButton {
+  font-family: var(--sanSerifFamily);
+  background-color: var(--tamboonOrchid);
+  border: 0;
+  border-radius: 2px;
+  padding: 4px 8px;
+  color: white;
+  cursor: pointer;
+}
+
+.payButton:hover {
+  box-shadow: -1px 1px 3px var(--shadowGray);
+}
+
+.payButton:focus {
+  box-shadow: -1px 1px 3px var(--shadowGray);
+  background-color: var(--tamboonOrchidFocused);
+}
+
+@media (max-width: 400px) {
+  .cardFrontOverlay[data-open='true'] .overlayTitle {
+    height: calc(0.25 * var(--cardHeight));
+  }
+
+  .charityName,
+  .donateButton,
+  .dialogContent {
+    font-size: 12px;
+  }
+
+  .donateButton {
+    padding: 2px 4px;
+    margin-left: 4px;
+  }
+
+  input[type='radio'] {
+    margin: 0 3px;
+  }
+
+  label {
+    margin-left: 5px;
+  }
+
+  label:first-child {
+    margin-left: 3px;
+  }
 }
