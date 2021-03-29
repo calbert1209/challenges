@@ -5,9 +5,20 @@ const kPaymentAmounts = [10, 20, 50, 100, 500];
 
 export const DonationOptionCard = ({ option }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [paymentAmount, setPaymentAmount] = useState(0);
 
-  const onClickPay = () => setDialogOpen((s) => !s);
+  const onClickDonate = () => {
+    setPaymentAmount(0);
+    setDialogOpen((s) => !s);
+  };
 
+  const onClickRadioButton = (amt) => {
+    setPaymentAmount(amt);
+  };
+
+  const onClickPay = () => {
+    console.log(`${paymentAmount} (${option.currency}) to ${option.name}`);
+  };
   const style = {
     backgroundImage: `url(./images/${option.image})`,
   };
@@ -19,11 +30,11 @@ export const DonationOptionCard = ({ option }) => {
           {dialogOpen ? (
             <CloseButton
               className="closeOverlayButton"
-              onClick={onClickPay}
+              onClick={onClickDonate}
               fill={'#687389'}
             />
           ) : (
-            <button className="donateButton" onClick={onClickPay}>
+            <button className="donateButton" onClick={onClickDonate}>
               {/* TODO: l10n */}
               {'Donate'}
             </button>
@@ -39,12 +50,13 @@ export const DonationOptionCard = ({ option }) => {
               <PaymentAmountOption
                 key={amount}
                 amount={amount}
-                onClick={() => {}}
+                onClick={onClickRadioButton}
+                checked={amount === paymentAmount}
               />
             ))}
           </div>
           <div className="paymentActionButtonContainer">
-            <button className="payButton" onClick={() => {}}>
+            <button className="payButton" onClick={onClickPay}>
               {/* TODO: l10n */}
               {'Pay'}
             </button>
@@ -77,11 +89,11 @@ const CloseButton = ({ onClick, className, fill = '#000000', opacity = 1 }) => {
   );
 };
 
-const PaymentAmountOption = ({ amount, onClick }) => {
+const PaymentAmountOption = ({ amount, onClick, checked }) => {
   return (
-    <label className="paymentAmount">
-      <input type="radio" name="payment" onClick={() => onClick(amount)} />
+    <div className="paymentAmount" onClick={() => onClick(amount)}>
+      <div data-checked={checked} className="paymentAmountRadioButton" />
       <div className="paymentAmountText">{amount}</div>
-    </label>
+    </div>
   );
 };

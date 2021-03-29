@@ -144,11 +144,26 @@ body {
   margin: 0 6px 0 0;
 }
 
+.paymentAmountRadioButton {
+  width: 10px;
+  height: 10px;
+  border: solid 1px var(--tamboonGray);
+  border-radius: 2px;
+  background-color: white;
+  margin: 0 5px;
+}
+
+.paymentAmountRadioButton[data-checked='true'] {
+  background-color: var(--tamboonOrchid);
+  border: solid 1px var(--tamboonOrchid);
+}
+
 .paymentAmount {
   display: flex;
   flex-direction: row;
   justify-content: left;
   align-items: center;
+  cursor: pointer;
 }
 
 input[type='radio'] {
