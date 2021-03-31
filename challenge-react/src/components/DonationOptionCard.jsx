@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
-import { handlePay } from '../helpers';
+import { useDispatch } from 'react-redux';
+import { postPayment } from '../post-payment';
+import { actions } from '../actions';
 
 const kPaymentAmounts = [10, 20, 50, 100, 500];
 
-export const DonationOptionCard = ({ option }) => {
+const formatThankYouMessage = (amount, currency, charityName) => {
+  return `Thank you for donating ${amount} ${currency} to ${charityName}`;
+};
+
+export const DonationOptionCard = ({ option, donationsReceived }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [paymentAmount, setPaymentAmount] = useState(0);
+  const dispatch = useDispatch();
 
   const onClickDonate = () => {
     setPaymentAmount(0);
@@ -16,8 +23,17 @@ export const DonationOptionCard = ({ option }) => {
     setPaymentAmount(amt);
   };
 
-  const onClickPay = () => {
-    console.log(`${paymentAmount} (${option.currency}) to ${option.name}`);
+  const onClickPay = async () => {
+    const { id, currency, name } = option;
+    try {
+      const postedPayment = await postPayment(id, paymentAmount, currency);
+
+      dispatch(actions.addPayment(postedPayment));
+      const msg = formatThankYouMessage(paymentAmount, currency, name);
+      dispatch(actions.updateMessage(msg));
+    } catch (error) {
+      console.error(error);
+    }
   };
   const style = {
     backgroundImage: `url(./images/${option.image})`,

@@ -24,13 +24,13 @@ export const App = () => {
 
   const donationsPerCharityMap = useMemo(() => {
     return payments.reduce((map, payment) => {
-      const {charitiesId, amount} = payment;
-      if ((charitiesId in map)) {
+      const { charitiesId, amount } = payment;
+      if (charitiesId in map) {
         map[charitiesId] += amount;
       } else {
         map[charitiesId] = amount;
       }
-      
+
       return map;
     }, {});
   }, [payments]);
