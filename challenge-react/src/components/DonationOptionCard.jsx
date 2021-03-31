@@ -5,10 +5,24 @@ import { actions } from '../actions';
 
 const kPaymentAmounts = [10, 20, 50, 100, 500];
 
+/**
+ * prepare message to be shown in banner
+ * @param {number} amount 
+ * @param {string} currency 
+ * @param {string} charityName 
+ * @returns string
+ */
 const formatThankYouMessage = (amount, currency, charityName) => {
+  // TODO l10n
   return `Thank you for donating ${amount} ${currency} to ${charityName}`;
 };
 
+/**
+ * 
+ * @param {Charity} option
+ * @param {number} donationsReceived total donations received 
+ * @returns JSX.Element
+ */
 export const DonationOptionCard = ({ option, donationsReceived }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [paymentAmount, setPaymentAmount] = useState(0);
@@ -83,6 +97,14 @@ export const DonationOptionCard = ({ option, donationsReceived }) => {
   );
 };
 
+/**
+ * 
+ * @param {() => void} onClick
+ * @param {string} className
+ * @param {string} fill the rgb fill color in hex
+ * @param {number?} opacity, defaults to 1 
+ * @returns JSX.Element
+ */
 const CloseButton = ({ onClick, className, fill = '#000000', opacity = 1 }) => {
   return (
     <div className={className} onClick={onClick}>
@@ -105,6 +127,13 @@ const CloseButton = ({ onClick, className, fill = '#000000', opacity = 1 }) => {
   );
 };
 
+/**
+ * 
+ * @param {number} amount payment amount
+ * @param {() => void} onClick
+ * @param {boolean} checked
+ * @returns JSX.Element
+ */
 const PaymentAmountOption = ({ amount, onClick, checked }) => {
   return (
     <div className="paymentAmount" onClick={() => onClick(amount)}>

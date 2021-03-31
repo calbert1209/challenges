@@ -5,6 +5,9 @@ const kPaymentSchema = {
   currency: 'string',
 };
 
+// TODO: in a real app, there would probably be more stringent requirements
+// for values to be passed to the API
+
 /**
  * tests if object is a valid payment
  *
