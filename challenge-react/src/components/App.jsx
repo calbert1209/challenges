@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import fetch from 'isomorphic-fetch';
 import styled from 'styled-components';
 import { DonationOptionCard } from './DonationOptionCard.jsx';
@@ -35,6 +35,8 @@ export const App = () => {
     }, {});
   }, [payments]);
 
+  const [openOptionId, setOpenOptionId] = useState(-1);
+
   useEffect(() => {
     fetch('http://localhost:3001/charities')
       .then((resp) => {
@@ -70,6 +72,8 @@ export const App = () => {
               key={charity.id}
               option={charity}
               donationsReceived={donationsPerCharityMap[charity.id]}
+              isOpen={openOptionId === charity.id}
+              setOpen={setOpenOptionId}
             />
           ))}
       </div>

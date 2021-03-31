@@ -21,16 +21,26 @@ const formatThankYouMessage = (amount, currency, charityName) => {
  *
  * @param {Charity} option
  * @param {number} donationsReceived total donations received
+ * @param {boolean} isOpen triggers open / close animation
+ * @param {(number) => void} setOpen callback trigger self open or all closed
  * @returns JSX.Element
  */
-export const DonationOptionCard = ({ option, donationsReceived }) => {
-  const [dialogOpen, setDialogOpen] = useState(false);
+export const DonationOptionCard = ({
+  option,
+  donationsReceived,
+  isOpen,
+  setOpen,
+}) => {
   const [paymentAmount, setPaymentAmount] = useState(0);
   const dispatch = useDispatch();
 
-  const onClickDonate = () => {
+  const onOpen = () => {
     setPaymentAmount(0);
-    setDialogOpen((s) => !s);
+    setOpen(option.id);
+  };
+
+  const onClose = () => {
+    setOpen(-1);
   };
 
   const onClickRadioButton = (amt) => {
@@ -54,23 +64,23 @@ export const DonationOptionCard = ({ option, donationsReceived }) => {
   };
   return (
     <div className="DonationOptionCard" style={style}>
-      <div className="cardFrontOverlay" data-open={dialogOpen}>
+      <div className="cardFrontOverlay" data-open={isOpen}>
         <div className="overlayTitle">
           <div className="charityName">{option.name}</div>
-          {dialogOpen ? (
+          {isOpen ? (
             <CloseButton
               className="closeOverlayButton"
-              onClick={onClickDonate}
+              onClick={onClose}
               fill={'#687389'}
             />
           ) : (
-            <button className="donateButton" onClick={onClickDonate}>
+            <button className="donateButton" onClick={onOpen}>
               {/* TODO: l10n */}
               {'Donate'}
             </button>
           )}
         </div>
-        <div className="dialogContent" data-show={dialogOpen}>
+        <div className="dialogContent" data-show={isOpen}>
           <div className="paymentAmountGuidance">
             {/* TODO: l10n */}
             {`${'Select the amount to donate'} (${option.currency})`}
