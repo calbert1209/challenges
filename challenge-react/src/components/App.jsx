@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import fetch from 'isomorphic-fetch';
 import styled from 'styled-components';
 import { DonationOptionCard } from './DonationOptionCard.jsx';
@@ -15,23 +15,41 @@ const Message = styled.p`
 
 export const App = () => {
   const dispatch = useDispatch();
-  const { message, donationTotal } = useSelector((s) => s);
+  const { message, charities, payments } = useSelector((s) => s);
 
-  const [charities, setCharities] = useState([]);
+  const donationTotal = useMemo(() => {
+    const donations = payments.map((payment) => payment.amount);
+    return donations.reduce((sum, donation) => sum + donation, 0);
+  }, [payments]);
+
+  const donationsPerCharityMap = useMemo(() => {
+    return payments.reduce((map, payment) => {
+      const {charitiesId, amount} = payment;
+      if ((charitiesId in map)) {
+        map[charitiesId] += amount;
+      } else {
+        map[charitiesId] = amount;
+      }
+      
+      return map;
+    }, {});
+  }, [payments]);
 
   useEffect(() => {
     fetch('http://localhost:3001/charities')
       .then((resp) => {
         return resp.json();
       })
-      .then(setCharities);
+      .then((charities) => {
+        dispatch(actions.setCharities(charities));
+      });
 
     fetch('http://localhost:3001/payments')
       .then((resp) => {
         return resp.json();
       })
       .then((payments) => {
-        dispatch(actions.updateDonationTotal(payments));
+        dispatch(actions.setPayments(payments));
       });
   }, []);
 
@@ -48,7 +66,11 @@ export const App = () => {
       <div className="cardGrid">
         {charities.length > 0 &&
           charities.map((charity) => (
-            <DonationOptionCard key={charity.id} option={charity} />
+            <DonationOptionCard
+              key={charity.id}
+              option={charity}
+              donationsReceived={donationsPerCharityMap[charity.id]}
+            />
           ))}
       </div>
     </div>
