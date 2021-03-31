@@ -1,17 +1,8 @@
-import { sum } from './helpers';
-
 export const actionTypes = {
-  updateDonationTotal: 'UPDATE_DONATION_TOTAL',
   updateMessage: 'UPDATE_MESSAGE',
-};
-
-const updateDonationTotal = (payments) => {
-  const donations = payments.map((payment) => payment.amount);
-  const donationTotal = sum(donations);
-  return {
-    type: actionTypes.updateDonationTotal,
-    donationTotal,
-  };
+  setCharities: 'SET_CHARITIES',
+  setPayments: 'SET_PAYMENTS',
+  addPayment: 'ADD_PAYMENT',
 };
 
 const updateMessage = (message) => ({
@@ -19,7 +10,24 @@ const updateMessage = (message) => ({
   message,
 });
 
+const setCharities = (charities) => ({
+  type: actionTypes.setCharities,
+  charities,
+});
+
+const setPayments = (payments) => ({
+  type: actionTypes.setPayments,
+  payments,
+});
+
+const addPayment = (payment) => ({
+  type: actionTypes.addPayment,
+  payment,
+});
+
 export const actions = {
-  updateDonationTotal,
   updateMessage,
+  setCharities,
+  setPayments,
+  addPayment,
 };
