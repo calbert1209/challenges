@@ -7,9 +7,9 @@ const kPaymentAmounts = [10, 20, 50, 100, 500];
 
 /**
  * prepare message to be shown in banner
- * @param {number} amount 
- * @param {string} currency 
- * @param {string} charityName 
+ * @param {number} amount
+ * @param {string} currency
+ * @param {string} charityName
  * @returns string
  */
 const formatThankYouMessage = (amount, currency, charityName) => {
@@ -18,9 +18,9 @@ const formatThankYouMessage = (amount, currency, charityName) => {
 };
 
 /**
- * 
+ *
  * @param {Charity} option
- * @param {number} donationsReceived total donations received 
+ * @param {number} donationsReceived total donations received
  * @returns JSX.Element
  */
 export const DonationOptionCard = ({ option, donationsReceived }) => {
@@ -98,11 +98,11 @@ export const DonationOptionCard = ({ option, donationsReceived }) => {
 };
 
 /**
- * 
+ *
  * @param {() => void} onClick
  * @param {string} className
  * @param {string} fill the rgb fill color in hex
- * @param {number?} opacity, defaults to 1 
+ * @param {number?} opacity, defaults to 1
  * @returns JSX.Element
  */
 const CloseButton = ({ onClick, className, fill = '#000000', opacity = 1 }) => {
@@ -128,7 +128,7 @@ const CloseButton = ({ onClick, className, fill = '#000000', opacity = 1 }) => {
 };
 
 /**
- * 
+ *
  * @param {number} amount payment amount
  * @param {() => void} onClick
  * @param {boolean} checked
