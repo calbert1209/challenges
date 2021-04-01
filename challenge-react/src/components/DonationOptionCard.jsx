@@ -62,6 +62,7 @@ export const DonationOptionCard = ({
   const style = {
     backgroundImage: `url(./images/${option.image})`,
   };
+  const currencyNote = `(${option.currency})`;
   return (
     <div className="DonationOptionCard" style={style}>
       <div className="cardFrontOverlay" data-open={isOpen}>
@@ -81,25 +82,31 @@ export const DonationOptionCard = ({
           )}
         </div>
         <div className="dialogContent" data-show={isOpen}>
-          <div className="paymentAmountGuidance">
-            {/* TODO: l10n */}
-            {`${'Select the amount to donate'} (${option.currency})`}
-          </div>
-          <div className="paymentOptions">
-            {kPaymentAmounts.map((amount, i) => (
-              <PaymentAmountOption
-                key={amount}
-                amount={amount}
-                onClick={onClickRadioButton}
-                checked={amount === paymentAmount}
-              />
-            ))}
-          </div>
-          <div className="paymentActionButtonContainer">
-            <button className="payButton" onClick={onClickPay}>
+          <div className="dialogContentGrid">
+            <div className="donationsSoFar">
               {/* TODO: l10n */}
-              {'Pay'}
-            </button>
+              {`Received so far: ${donationsReceived} ${currencyNote}`}
+            </div>
+            <div className="paymentAmountGuidance">
+              {/* TODO: l10n */}
+              {`Select the amount to donate ${currencyNote}`}
+            </div>
+            <div className="paymentOptions">
+              {kPaymentAmounts.map((amount, i) => (
+                <PaymentAmountOption
+                  key={amount}
+                  amount={amount}
+                  onClick={onClickRadioButton}
+                  checked={amount === paymentAmount}
+                />
+              ))}
+            </div>
+            <div className="paymentActionButtonContainer">
+              <button className="payButton" onClick={onClickPay}>
+                {/* TODO: l10n */}
+                {'Pay'}
+              </button>
+            </div>
           </div>
         </div>
       </div>
