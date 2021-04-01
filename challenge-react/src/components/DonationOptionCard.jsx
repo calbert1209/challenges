@@ -31,11 +31,11 @@ export const DonationOptionCard = ({
   isOpen,
   setOpen,
 }) => {
-  const [paymentAmount, setPaymentAmount] = useState(0);
+  const [paymentAmount, setPaymentAmount] = useState(10);
   const dispatch = useDispatch();
 
   const onOpen = () => {
-    setPaymentAmount(0);
+    setPaymentAmount(10);
     setOpen(option.id);
   };
 
