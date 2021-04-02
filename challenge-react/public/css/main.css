@@ -60,17 +60,20 @@
   height: 100%;
   top: 0;
   left: 0;
-  background-color: rgba(80, 80, 80, 0.7);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
 }
 
+.modalScrim[data-hasColor='true'] {
+  background-color: rgba(40, 40, 40, 0.7);
+}
+
 .modal {
   width: 90vw;
   max-width: 600px;
-  height: 90vw;
+  height: 30vh;
   max-height: 400px;
   background-color: white;
   border-radius: 2px;
@@ -293,5 +296,9 @@
 
   .paymentAmountRadioButton {
     margin: 0 3px;
+  }
+
+  .confirmGridCell > span {
+    font-size: 80%;
   }
 }
