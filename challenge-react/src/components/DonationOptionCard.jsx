@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { postPayment } from '../post-payment';
 import { actions } from '../actions';
+import { ModalScrim } from './Modal.jsx';
 
 const kPaymentAmounts = [10, 20, 50, 100, 500];
 
@@ -32,6 +33,7 @@ export const DonationOptionCard = ({
   setOpen,
 }) => {
   const [paymentAmount, setPaymentAmount] = useState(10);
+  const [showConfirm, setShowConfirm] = useState(false);
   const dispatch = useDispatch();
 
   const onOpen = () => {
@@ -47,7 +49,11 @@ export const DonationOptionCard = ({
     setPaymentAmount(amt);
   };
 
-  const onClickPay = async () => {
+  const onClickPay = () => {
+    setShowConfirm(true);
+  };
+
+  const onClickConfirm = async () => {
     const { id, currency, name } = option;
     try {
       const postedPayment = await postPayment(id, paymentAmount, currency);
@@ -57,17 +63,26 @@ export const DonationOptionCard = ({
       dispatch(actions.updateMessage(msg));
     } catch (error) {
       console.error(error);
+    } finally {
+      setShowConfirm(false);
     }
   };
-  const style = {
-    backgroundImage: `url(./images/${option.image})`,
+
+  const closeConfirmModal = () => {
+    setShowConfirm(false);
   };
-  const currencyNote = `(${option.currency})`;
+
+  const { name, image, currency } = option;
+
+  const style = {
+    backgroundImage: `url(./images/${image})`,
+  };
+  const currencyNote = `(${currency})`;
   return (
     <div className="DonationOptionCard" style={style}>
       <div className="cardFrontOverlay" data-open={isOpen}>
         <div className="overlayTitle">
-          <div className="charityName">{option.name}</div>
+          <div className="charityName">{name}</div>
           {isOpen ? (
             <CloseButton
               className="closeOverlayButton"
@@ -75,7 +90,7 @@ export const DonationOptionCard = ({
               fill={'#687389'}
             />
           ) : (
-            <button className="donateButton" onClick={onOpen}>
+            <button className="borderedButton secondaryButton" onClick={onOpen}>
               {/* TODO: l10n */}
               {'Donate'}
             </button>
@@ -92,7 +107,7 @@ export const DonationOptionCard = ({
               {`Select the amount to donate ${currencyNote}`}
             </div>
             <div className="paymentOptions">
-              {kPaymentAmounts.map((amount, i) => (
+              {kPaymentAmounts.map((amount) => (
                 <PaymentAmountOption
                   key={amount}
                   amount={amount}
@@ -102,7 +117,10 @@ export const DonationOptionCard = ({
               ))}
             </div>
             <div className="paymentActionButtonContainer">
-              <button className="payButton" onClick={onClickPay}>
+              <button
+                className="borderedButton primaryButton"
+                onClick={onClickPay}
+              >
                 {/* TODO: l10n */}
                 {'Pay'}
               </button>
@@ -110,6 +128,42 @@ export const DonationOptionCard = ({
           </div>
         </div>
       </div>
+      <ModalScrim show={showConfirm} onClickScrim={() => setShowConfirm(false)}>
+        <div className="modal confirmPaymentModal">
+          <div className="confirmGridCell confirmModalHeader">
+            {/* TODO: l10n */}
+            <span>Please confirm your donation</span>
+          </div>
+          <div className="confirmGridCell confirmModalMessage">
+            <span>
+              {/* TODO: l10n */}
+              {`Donate ${paymentAmount} ${currency} to ${name}?`}
+            </span>
+          </div>
+          <div className="confirmGridCell confirmModalGuidance">
+            <span>
+              {/* TODO: l10n */}
+              {'This transaction will be completed only if you click "Confirm"'}
+            </span>
+          </div>
+          <div className="confirmGridCell confirmModalActionButtonCell">
+            <button
+              className="borderedButton secondaryButton cancelButton"
+              onClick={closeConfirmModal}
+            >
+              {/* TODO: l10n */}
+              {'Cancel'}
+            </button>
+            <button
+              className="borderedButton primaryButton"
+              onClick={onClickConfirm}
+            >
+              {/* TODO: l10n */}
+              {'Confirm'}
+            </button>
+          </div>
+        </div>
+      </ModalScrim>
     </div>
   );
 };

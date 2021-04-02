@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import fetch from 'isomorphic-fetch';
 import styled from 'styled-components';
 import { DonationOptionCard } from './DonationOptionCard.jsx';
 import { useDispatch, useSelector } from 'react-redux';
@@ -38,7 +37,8 @@ export const App = () => {
   const [openOptionId, setOpenOptionId] = useState(-1);
 
   useEffect(() => {
-    fetch('http://localhost:3001/charities')
+    window
+      .fetch('http://localhost:3001/charities')
       .then((resp) => {
         return resp.json();
       })
@@ -46,7 +46,8 @@ export const App = () => {
         dispatch(actions.setCharities(charities));
       });
 
-    fetch('http://localhost:3001/payments')
+    window
+      .fetch('http://localhost:3001/payments')
       .then((resp) => {
         return resp.json();
       })
@@ -56,7 +57,7 @@ export const App = () => {
   }, []);
 
   return (
-    <div>
+    <div id="app">
       <header className="mainHeader">
         <h1 className="headerTitle">Tamboon React</h1>
         <p className="headerDonationTotal">

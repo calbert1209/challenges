@@ -10,12 +10,71 @@
   color: var(--tamboonGray);
 }
 
-html {
-  width: 100%;
+/* :::: Common ::::::::::: */
+
+/* Bordered Button */
+
+.borderedButton {
+  font-family: var(--sanSerifFamily);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 2px;
+  padding: 4px 8px;
+  cursor: pointer;
 }
 
-body {
+.borderedButton:hover {
+  box-shadow: -1px 1px 3px var(--shadowGray);
+}
+
+.borderedButton:focus {
+  box-shadow: -1px 1px 3px var(--shadowGray);
+}
+
+.primaryButton {
+  background-color: var(--tamboonOrchid);
+  border: 0;
+  height: 30px;
+  color: white;
+}
+
+.primaryButton:focus {
+  background-color: var(--tamboonOrchidFocused);
+}
+
+.secondaryButton {
+  background-color: white;
+  border-color: var(--tamboonOrchid);
+  color: var(--tamboonOrchid);
+}
+
+.closeOverlayButton {
+  cursor: pointer;
+}
+
+/* Modal */
+
+.modalScrim {
+  position: fixed;
   width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(80, 80, 80, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.modal {
+  width: 90vw;
+  max-width: 600px;
+  height: 90vw;
+  max-height: 400px;
+  background-color: white;
+  border-radius: 2px;
+  box-shadow: -1px 1px var(--shadowGray);
 }
 
 .mainHeader {
@@ -104,20 +163,6 @@ body {
   font-weight: 700;
 }
 
-.donateButton {
-  font-family: var(--sanSerifFamily);
-  background-color: white;
-  border: 1px solid var(--tamboonOrchid);
-  border-radius: 2px;
-  padding: 4px 8px;
-  color: var(--tamboonOrchid);
-  cursor: pointer;
-}
-
-.closeOverlayButton {
-  cursor: pointer;
-}
-
 .dialogContent {
   --contentHeight: calc(0.7 * var(--cardHeight));
   visibility: hidden;
@@ -182,24 +227,42 @@ body {
   align-items: center;
 }
 
-.payButton {
-  font-family: var(--sanSerifFamily);
-  background-color: var(--tamboonOrchid);
-  border: 0;
-  border-radius: 2px;
-  padding: 4px 8px;
-  height: 30px;
-  color: white;
-  cursor: pointer;
+.confirmPaymentModal {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: repeat(4, 1fr);
+  padding: 0 max(3vw, 10px);
+  margin-top: 10vmin;
 }
 
-.payButton:hover {
-  box-shadow: -1px 1px 3px var(--shadowGray);
+.confirmModalHeader {
+  font-size: 160%;
+  font-weight: 700;
 }
 
-.payButton:focus {
-  box-shadow: -1px 1px 3px var(--shadowGray);
-  background-color: var(--tamboonOrchidFocused);
+.confirmModalMessage {
+  font-size: 120%;
+  font-weight: 500;
+  color: var(--tamboonOrchid);
+}
+
+.confirmModalGuidance {
+  font-weight: 200;
+  font-style: italic;
+}
+
+.confirmGridCell {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.confirmModalActionButtonCell {
+  justify-content: flex-end;
+}
+
+.cancelButton {
+  margin-right: max(6vw, 20px);
 }
 
 @media (max-width: 400px) {
@@ -208,19 +271,27 @@ body {
   }
 
   .charityName,
-  .donateButton,
-  .dialogContent,
-  .payButton {
+  .secondaryButton,
+  .borderedButton {
     font-size: 12px;
   }
 
-  .donateButton,
-  .payButton {
+  .borderedButton {
     padding: 2px 4px;
     margin-left: 4px;
   }
 
-  .payButton {
+  .primaryButton {
     height: 24px;
+  }
+
+  .donationsSoFar,
+  .paymentAmountGuidance,
+  .paymentAmountText {
+    font-size: 80%;
+  }
+
+  .paymentAmountRadioButton {
+    margin: 0 3px;
   }
 }
