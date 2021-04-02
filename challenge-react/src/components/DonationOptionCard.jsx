@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { postPayment } from '../post-payment';
 import { actions } from '../actions';
-import { ModalScrim } from './Modal.jsx';
+import { ConfirmDonationModal } from './Modal.jsx';
 
 const kPaymentAmounts = [10, 20, 50, 100, 500];
 
@@ -128,42 +128,14 @@ export const DonationOptionCard = ({
           </div>
         </div>
       </div>
-      <ModalScrim show={showConfirm} onClickScrim={() => setShowConfirm(false)}>
-        <div className="modal confirmPaymentModal">
-          <div className="confirmGridCell confirmModalHeader">
-            {/* TODO: l10n */}
-            <span>Please confirm your donation</span>
-          </div>
-          <div className="confirmGridCell confirmModalMessage">
-            <span>
-              {/* TODO: l10n */}
-              {`Donate ${paymentAmount} ${currency} to ${name}?`}
-            </span>
-          </div>
-          <div className="confirmGridCell confirmModalGuidance">
-            <span>
-              {/* TODO: l10n */}
-              {'This transaction will be completed only if you click "Confirm"'}
-            </span>
-          </div>
-          <div className="confirmGridCell confirmModalActionButtonCell">
-            <button
-              className="borderedButton secondaryButton cancelButton"
-              onClick={closeConfirmModal}
-            >
-              {/* TODO: l10n */}
-              {'Cancel'}
-            </button>
-            <button
-              className="borderedButton primaryButton"
-              onClick={onClickConfirm}
-            >
-              {/* TODO: l10n */}
-              {'Confirm'}
-            </button>
-          </div>
-        </div>
-      </ModalScrim>
+      <ConfirmDonationModal
+        show={showConfirm}
+        onCancel={closeConfirmModal}
+        onConfirm={onClickConfirm}
+        amount={paymentAmount}
+        currency={currency}
+        charityName={name}
+      />
     </div>
   );
 };
