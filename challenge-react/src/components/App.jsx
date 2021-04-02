@@ -1,16 +1,15 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import styled from 'styled-components';
 import { DonationOptionCard } from './DonationOptionCard.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../actions';
 
-const Message = styled.p`
-  color: red;
-  margin: 1em 0;
-  font-weight: bold;
-  font-size: 16px;
-  text-align: center;
-`;
+const GratitudeMessage = ({ children }) => {
+  return (
+    <div className="gratitudeMessageContainer">
+      <div className="gratitudeMessage">{children}</div>
+    </div>
+  );
+};
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -65,7 +64,7 @@ export const App = () => {
           {`Total Donations: ${donationTotal}`}
         </p>
       </header>
-      {message && <Message>{message}</Message>}
+      {message && <GratitudeMessage>{message}</GratitudeMessage>}
       <div className="cardGrid">
         {charities.length > 0 &&
           charities.map((charity) => (

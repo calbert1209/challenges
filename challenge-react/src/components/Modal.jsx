@@ -10,7 +10,7 @@ export const ModalScrim = ({ show, onClickScrim, hasColor, children }) => {
     <div
       className="modalScrim"
       onClick={onClickScrim}
-      data-hasColor={hasColor ?? true}
+      data-hascolor={hasColor ?? true}
     >
       <div onClick={(e) => e.stopPropagation()}>{children}</div>
     </div>,
