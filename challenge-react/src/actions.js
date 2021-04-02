@@ -1,12 +1,13 @@
 export const actionTypes = {
-  updateMessage: 'UPDATE_MESSAGE',
+  setMessage: 'UPDATE_MESSAGE',
   setCharities: 'SET_CHARITIES',
   setPayments: 'SET_PAYMENTS',
   addPayment: 'ADD_PAYMENT',
+  setError: 'SET_ERROR',
 };
 
-const updateMessage = (message) => ({
-  type: actionTypes.updateMessage,
+const setMessage = (message) => ({
+  type: actionTypes.setMessage,
   message,
 });
 
@@ -25,9 +26,16 @@ const addPayment = (payment) => ({
   payment,
 });
 
+// TODO verify arg, and/or provide default values
+const setError = (error) => ({
+  type: actionTypes.setError,
+  error,
+});
+
 export const actions = {
-  updateMessage,
+  setMessage,
   setCharities,
   setPayments,
   addPayment,
+  setError,
 };

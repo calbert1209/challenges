@@ -1,9 +1,9 @@
 import { actions } from '../actions';
 
-describe('updateMessage', () => {
+describe('setMessage', () => {
   test('should create action with correct type and message', () => {
     const message = 'Thank you for your donation';
-    expect(actions.updateMessage(message)).toMatchObject({
+    expect(actions.setMessage(message)).toMatchObject({
       type: 'UPDATE_MESSAGE',
       message,
     });
@@ -90,5 +90,22 @@ describe('addPayment', () => {
 
   test('should create action with correct payload', () => {
     expect(addPaymentAction.payment).toMatchObject(added);
+  });
+});
+
+describe('setError', () => {
+  const error = {
+    title: 'invalid amp setting',
+    message: 'max volume is 10',
+  };
+
+  const setErrorAction = actions.setError(error);
+
+  test('should create action with correct type', () => {
+    expect(setErrorAction.type).toEqual('SET_ERROR');
+  });
+
+  test('should create action with correct payload', () => {
+    expect(setErrorAction.error).toMatchObject(error);
   });
 });
