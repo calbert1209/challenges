@@ -56,13 +56,23 @@ export const DonationOptionCard = ({
   const onClickConfirm = async () => {
     const { id, currency, name } = option;
     try {
+      // uncomment next line to trigger error alert dialog
+      // await Promise.reject(new Error('FAKE: processing error'));
       const postedPayment = await postPayment(id, paymentAmount, currency);
 
       dispatch(actions.addPayment(postedPayment));
       const msg = formatThankYouMessage(paymentAmount, currency, name);
-      dispatch(actions.updateMessage(msg));
+      dispatch(actions.setMessage(msg));
     } catch (error) {
-      console.error(error);
+      // TODO: l10n, also provide different titles/messages per error
+      dispatch(
+        actions.setError({
+          title: 'Error in Payment Processing',
+          message:
+            'Funds were not deducted from your balance, because of the following error:',
+          original: error,
+        })
+      );
     } finally {
       setShowConfirm(false);
     }

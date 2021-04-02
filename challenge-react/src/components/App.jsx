@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { DonationOptionCard } from './DonationOptionCard.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../actions';
+import { ErrorAlertModal } from './Modal.jsx';
 
 const GratitudeMessage = ({ children }) => {
   return (
@@ -43,6 +44,15 @@ export const App = () => {
       })
       .then((charities) => {
         dispatch(actions.setCharities(charities));
+      })
+      .catch((error) => {
+        dispatch(
+          actions.setError({
+            title: 'Could not get Charities',
+            message: 'An error occurred while trying to get list of charities',
+            original: error,
+          })
+        );
       });
 
     window
@@ -52,8 +62,23 @@ export const App = () => {
       })
       .then((payments) => {
         dispatch(actions.setPayments(payments));
+      })
+      .catch((error) => {
+        dispatch(
+          actions.setError({
+            title: 'Could not get Payments',
+            message: 'An error occurred while trying to get payment history',
+            original: error,
+          })
+        );
       });
   }, []);
+
+  useEffect(() => {
+    if (message.length > 0) {
+      setOpenOptionId(-1);
+    }
+  }, [message]);
 
   return (
     <div id="app">
@@ -77,6 +102,7 @@ export const App = () => {
             />
           ))}
       </div>
+      <ErrorAlertModal />
     </div>
   );
 };

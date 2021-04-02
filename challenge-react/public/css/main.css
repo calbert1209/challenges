@@ -1,13 +1,15 @@
 :root {
   --sanSerifFamily: 'Kanit', Arial, Helvetica, sans-serif;
   --serifFamily: 'Taviraj', Georgia, 'Times New Roman', Times, serif;
+  --tamboonDarkOrchid: #2e0f3e;
   --tamboonOrchid: #9932cc;
   --tamboonOrchidFocused: #ba55d3;
   --tamboonPaleOrchid: #fcf5fc;
-  --tamboonGray: #687389;
+  --tamboonGray: #677289;
+  --tamboonDarkGray: #4d5566;
   --shadowGray: rgba(128, 128, 128, 0.4);
   font-family: var(--sanSerifFamily);
-  color: var(--tamboonGray);
+  color: var(--tamboonDarkGray);
 }
 
 /* :::: Common ::::::::::: */
@@ -254,6 +256,26 @@
   align-items: center;
 }
 
+.modalGridCell {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.modalGridCell.header {
+  font-size: 160%;
+  font-weight: 700;
+}
+
+.modalGridCell.message {
+  font-size: 120%;
+  font-weight: 500;
+}
+
+.modalGridCell.actionButtonCell {
+  justify-content: flex-end;
+}
+
 .confirmPaymentModal {
   display: grid;
   grid-template-columns: auto;
@@ -262,34 +284,41 @@
   margin-top: 10vmin;
 }
 
-.confirmModalHeader {
-  font-size: 160%;
-  font-weight: 700;
-}
-
-.confirmModalMessage {
-  font-size: 120%;
-  font-weight: 500;
+.confirmPaymentModal .modalGridCell.message {
   color: var(--tamboonOrchid);
 }
 
-.confirmModalGuidance {
+.confirmPaymentModal .modalGridCell.guidance {
   font-weight: 200;
   font-style: italic;
 }
 
-.confirmGridCell {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.confirmModalActionButtonCell {
-  justify-content: flex-end;
-}
-
 .cancelButton {
   margin-right: max(6vw, 20px);
+}
+
+.errorAlertModal {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: repeat(4, 1fr);
+  padding: 0 max(3vw, 10px);
+  margin-top: 10vmin;
+}
+
+.errorAlertModal .modalGridCell.header {
+  color: var(--tamboonDarkOrchid);
+}
+
+.errorAlertModal .modalGridCell.message {
+  color: var(--tamboonDarkGray);
+}
+
+.errorAlertModal pre {
+  width: 100%;
+  padding: 10px;
+  border-radius: 2px;
+  background-color: var(--tamboonPaleOrchid);
+  color: var(--tamboonDarkGray);
 }
 
 @media (max-width: 400px) {
@@ -322,7 +351,7 @@
     margin: 0 3px;
   }
 
-  .confirmGridCell > span {
+  .modalGridCell > span {
     font-size: 80%;
   }
 }

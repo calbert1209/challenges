@@ -12,12 +12,13 @@ const store = createStore((state, action) => {
           message: '',
           charities: [],
           payments: [],
+          error: null,
         }
       : state;
 
   switch (action.type) {
 
-    case actionTypes.updateMessage:
+    case actionTypes.setMessage:
       return { ..._state, message: action.message };
 
     case actionTypes.setCharities:
@@ -29,6 +30,9 @@ const store = createStore((state, action) => {
     case actionTypes.addPayment:
       const payments = [..._state.payments, action.payment];
       return {..._state, payments};
+
+    case actionTypes.setError:
+      return {..._state, error: action.error}
 
     default:
       return _state;
