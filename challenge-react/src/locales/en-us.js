@@ -3,7 +3,12 @@ export const enUS = {
    * Tamboon React
    */
   mainPageTitle: 'Tamboon React',
-  headerDonationTotal: (total) => `Total Donations: ${total}`,
+  /**
+   * `Total Donations: ${total}`
+   * @param {number} total total of all donations
+   * @returns string
+   */
+  headerDonationTotal: (total) => `Total Donations: ${total} THB`,
   /**
    * `Thank you for donating ${amount} ${currency} to ${charityName}`
    * @param {number} amount amount of money donated

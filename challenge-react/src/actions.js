@@ -4,6 +4,7 @@ export const actionTypes = {
   setPayments: 'SET_PAYMENTS',
   addPayment: 'ADD_PAYMENT',
   setError: 'SET_ERROR',
+  setLocale: 'SET_LOCALE',
 };
 
 const setMessage = (message) => ({
@@ -32,10 +33,16 @@ const setError = (error) => ({
   error,
 });
 
+const setLocale = (locale) => ({
+  type: actionTypes.setLocale,
+  locale,
+});
+
 export const actions = {
   setMessage,
   setCharities,
   setPayments,
   addPayment,
   setError,
+  setLocale,
 };

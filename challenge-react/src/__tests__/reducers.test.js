@@ -7,6 +7,7 @@ describe('mainReducer', () => {
       charities: [],
       payments: [],
       error: null,
+      locale: 'en-US',
     };
 
     const charities = [
@@ -112,6 +113,13 @@ describe('mainReducer', () => {
         error: null,
       });
       expect(nextState).toMatchObject({ ...baseState, error: null });
+    });
+
+    test('setLocale', () => {
+      const locale = 'ja-JP';
+
+      const nextState = mainReducer(baseState, { type: 'SET_LOCALE', locale });
+      expect(nextState).toMatchObject({ ...baseState, locale });
     });
 
     test('invalid actionType should return state as-is', () => {

@@ -1,9 +1,20 @@
+/**
+ * NOTE: The Japanese provided here is a rough translation,
+ * as my intent is to provide a mechanism for swapping locales,
+ * rather than impressing you with my translation skills.
+ */
+
 export const jaJP = {
   /**
    * Tamboon React
    */
   mainPageTitle: 'Tamboon React',
-  headerDonationTotal: (total) => `Total Donations: ${total}`,
+  /**
+   * `Total Donations: ${total}`
+   * @param {number} total total of all donations
+   * @returns string
+   */
+  headerDonationTotal: (total) => `寄付の総計: ${total} THB`,
   /**
    * `Thank you for donating ${amount} ${currency} to ${charityName}`
    * @param {number} amount amount of money donated

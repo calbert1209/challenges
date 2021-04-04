@@ -11,9 +11,7 @@ const LocaleProvider = createLocalProvider();
 
 render(
   <Provider store={store}>
-    <LocaleProvider locale={'en-US'}>
-      <App />
-    </LocaleProvider>
+      <App LocaleProvider={LocaleProvider}/>
   </Provider>,
   document.getElementById('root')
 );
