@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { postPayment } from '../post-payment';
 import { actions } from '../actions';
-import { ConfirmDonationModal } from './Modal.jsx';
+import { DonationConfirmationModal } from './Modal.jsx';
 import { useLocale } from '../locales/locales.jsx';
 
 const kPaymentAmounts = [10, 20, 50, 100, 500];
@@ -99,7 +99,7 @@ export const DonationOptionCard = ({
               {t.donationsSoFar(donationsReceived, currency)}
             </div>
             <div className="paymentAmountGuidance">
-              {t.paymentAmountGuidance(currency)}
+              {t.donationAmountGuidance(currency)}
             </div>
             <div className="paymentOptions">
               {kPaymentAmounts.map((amount) => (
@@ -122,7 +122,7 @@ export const DonationOptionCard = ({
           </div>
         </div>
       </div>
-      <ConfirmDonationModal
+      <DonationConfirmationModal
         show={showConfirm}
         onCancel={closeConfirmModal}
         onConfirm={onClickConfirm}
