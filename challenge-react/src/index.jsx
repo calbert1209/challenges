@@ -3,9 +3,9 @@ import { render } from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { App } from './components/App.jsx';
-import {rootReducer} from './reducers';
+import {mainReducer} from './reducers';
 
-const store = createStore(rootReducer)
+const store = createStore(mainReducer)
 
 render(
   <Provider store={store}>
