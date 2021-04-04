@@ -3,6 +3,10 @@ import { DonationOptionCard } from './DonationOptionCard.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../actions';
 import { ErrorAlertModal } from './Modal.jsx';
+import { useLocale } from '../locales/locales.jsx';
+
+const kCharitiesApiUrl = 'http://localhost:3001/charities';
+const kPaymentsApiUrl = 'http://localhost:3001/payments';
 
 const GratitudeMessage = ({ children }) => {
   return (
@@ -35,10 +39,11 @@ export const App = () => {
   }, [payments]);
 
   const [openOptionId, setOpenOptionId] = useState(-1);
+  const t = useLocale();
 
   useEffect(() => {
     window
-      .fetch('http://localhost:3001/charities')
+      .fetch(kCharitiesApiUrl)
       .then((resp) => {
         return resp.json();
       })
@@ -47,17 +52,16 @@ export const App = () => {
       })
       .catch((error) => {
         dispatch(
-          // TODO: l10n
           actions.setError({
-            title: 'Could not get Charities',
-            message: 'An error occurred while trying to get list of charities',
+            title: t.couldNotGetCharitiesTitle,
+            message: t.couldNotGetCharitiesMsg,
             original: error,
           })
         );
       });
 
     window
-      .fetch('http://localhost:3001/payments')
+      .fetch(kPaymentsApiUrl)
       .then((resp) => {
         return resp.json();
       })
@@ -65,11 +69,10 @@ export const App = () => {
         dispatch(actions.setPayments(payments));
       })
       .catch((error) => {
-        // TODO: l10n
         dispatch(
           actions.setError({
-            title: 'Could not get Payments',
-            message: 'An error occurred while trying to get payment history',
+            title: t.couldNotGetPaymentsTitle,
+            message: t.couldNotGetPaymentsMsg,
             original: error,
           })
         );
@@ -85,10 +88,9 @@ export const App = () => {
   return (
     <div id="app">
       <header className="mainHeader">
-        <h1 className="headerTitle">Tamboon React</h1>
+        <h1 className="headerTitle">{t.mainPageTitle}</h1>
         <p className="headerDonationTotal">
-          {/* TODO l10n */}
-          {`Total Donations: ${donationTotal}`}
+          {t.headerDonationTotal(donationTotal)}
         </p>
       </header>
       {message && <GratitudeMessage>{message}</GratitudeMessage>}
