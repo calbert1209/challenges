@@ -47,6 +47,7 @@ export const App = () => {
       })
       .catch((error) => {
         dispatch(
+          // TODO: l10n
           actions.setError({
             title: 'Could not get Charities',
             message: 'An error occurred while trying to get list of charities',
@@ -64,6 +65,7 @@ export const App = () => {
         dispatch(actions.setPayments(payments));
       })
       .catch((error) => {
+        // TODO: l10n
         dispatch(
           actions.setError({
             title: 'Could not get Payments',

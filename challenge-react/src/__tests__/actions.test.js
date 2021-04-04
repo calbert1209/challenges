@@ -4,7 +4,7 @@ describe('setMessage', () => {
   test('should create action with correct type and message', () => {
     const message = 'Thank you for your donation';
     expect(actions.setMessage(message)).toMatchObject({
-      type: 'UPDATE_MESSAGE',
+      type: 'SET_MESSAGE',
       message,
     });
   });

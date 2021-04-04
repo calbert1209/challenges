@@ -1,5 +1,5 @@
 export const actionTypes = {
-  setMessage: 'UPDATE_MESSAGE',
+  setMessage: 'SET_MESSAGE',
   setCharities: 'SET_CHARITIES',
   setPayments: 'SET_PAYMENTS',
   addPayment: 'ADD_PAYMENT',
