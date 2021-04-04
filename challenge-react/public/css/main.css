@@ -365,7 +365,7 @@
 
   .borderedButton:lang(ja-JP) {
     font-size: 10px;
-    max-width: 32px;
+    min-width: 52px;
   }
 
   .borderedButton {

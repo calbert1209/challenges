@@ -27,7 +27,7 @@ export const jaJP = {
   /**
    * Donate
    */
-  donate: '寄付',
+  donate: '寄付する',
   /**
    * `${total} ${currency} donated so far`
    * @param {number} total amount of donated funds
@@ -41,7 +41,7 @@ export const jaJP = {
    * @param {string} currency currency of payment options
    * @returns string
    */
-  donationAmountGuidance: (currency) => `寄付額を選んでください(${currency})`,
+  donationAmountGuidance: (currency) => `${currency}での寄付額を選んでください`,
   /**
    * Pay
    */
