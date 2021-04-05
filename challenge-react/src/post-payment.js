@@ -1,3 +1,5 @@
+const kPostPaymentApiUrl = 'http://localhost:3001/payments/';
+
 const kPaymentSchema = {
   id: 'number',
   charitiesId: 'number',
@@ -5,13 +7,11 @@ const kPaymentSchema = {
   currency: 'string',
 };
 
-const kPostPaymentApiUrl = 'http://localhost:3001/payments/';
-
 // TODO: in a real app, there would probably be more stringent requirements
 // for values to be passed to the API
 
 /**
- * tests if object is a valid payment
+ * tests if payment arguments are valid
  *
  * @param {any} charitiesId
  * @param {any} amount

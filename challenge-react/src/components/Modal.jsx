@@ -1,7 +1,5 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { actions } from '../actions';
 
 /**
  *
