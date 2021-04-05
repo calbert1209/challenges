@@ -56,8 +56,6 @@ export const DonationOptionCard = ({
   const onClickConfirm = async () => {
     const { id, currency, name } = option;
     try {
-      // uncomment next line to trigger error alert dialog
-      // await Promise.reject(new Error('FAKE: processing error'));
       const postedPayment = await postPayment(id, paymentAmount, currency);
 
       dispatch(actions.addPayment(postedPayment));

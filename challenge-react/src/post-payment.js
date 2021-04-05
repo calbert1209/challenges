@@ -5,6 +5,8 @@ const kPaymentSchema = {
   currency: 'string',
 };
 
+const kPostPaymentApiUrl = 'http://localhost:3001/payments/';
+
 // TODO: in a real app, there would probably be more stringent requirements
 // for values to be passed to the API
 
@@ -46,9 +48,8 @@ export async function postPayment(id, amount, currency, fetch = window.fetch) {
     throw new Error('InvalidPaymentArguments');
   }
 
-  const url = 'http://localhost:3001/payments/';
   const payload = { charitiesId: id, amount, currency };
-  const resp = await fetch(url, {
+  const resp = await fetch(kPostPaymentApiUrl, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

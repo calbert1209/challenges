@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../actions';
 import { ErrorAlertModal } from './Modal.jsx';
 
+const kCharitiesApiUrl = 'http://localhost:3001/charities';
+const kPaymentsApiUrl = 'http://localhost:3001/payments';
+
 const GratitudeMessage = ({ children }) => {
   return (
     <div className="gratitudeMessageContainer">
@@ -38,7 +41,7 @@ export const App = () => {
 
   useEffect(() => {
     window
-      .fetch('http://localhost:3001/charities')
+      .fetch(kCharitiesApiUrl)
       .then((resp) => {
         return resp.json();
       })
@@ -57,7 +60,7 @@ export const App = () => {
       });
 
     window
-      .fetch('http://localhost:3001/payments')
+      .fetch(kPaymentsApiUrl)
       .then((resp) => {
         return resp.json();
       })
