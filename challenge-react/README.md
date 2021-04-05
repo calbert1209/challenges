@@ -1,3 +1,5 @@
+# Tamboon React by Christian Albert
+
 ## Missions Completed
 
 - [x] Complete the application according to the design (image above).
@@ -21,6 +23,10 @@
 - [ ] Write helpers or components unit tests with [jest](https://facebook.github.io/jest/).
   - 💬 I've written tests for the non-component logic
   - 💬 Tests can be executed via the standard `npm run test` or `yarn test`
+
+## What's next
+
+I've added some issues to this fork as a reminder of things I might handle next if this were a real project
 
 ## Thank You!
 
