@@ -25,9 +25,6 @@ export const mainReducer = (state, action) => {
       const payments = [..._state.payments, action.payment];
       return { ..._state, payments };
 
-    case actionTypes.setError:
-      return { ..._state, error: action.error };
-
     default:
       return _state;
   }

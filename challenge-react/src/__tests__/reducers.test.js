@@ -99,21 +99,6 @@ describe('mainReducer', () => {
       expect(nextState.payments).toMatchObject([...payments, addedPayment]);
     });
 
-    test('setError', () => {
-      const nextState = mainReducer(baseState, { type: 'SET_ERROR', error });
-      expect(nextState).toMatchObject({ ...baseState, error });
-    });
-
-    test('setError (to null)', () => {
-      const stateWithError = { ...baseState, error };
-
-      const nextState = mainReducer(stateWithError, {
-        type: 'SET_ERROR',
-        error: null,
-      });
-      expect(nextState).toMatchObject({ ...baseState, error: null });
-    });
-
     test('invalid actionType should return state as-is', () => {
       const title = 'please make merit';
 

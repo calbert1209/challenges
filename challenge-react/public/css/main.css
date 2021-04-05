@@ -16,8 +16,6 @@
   color: var(--tamboonDarkGray);
 }
 
-/* :::: Common ::::::::::: */
-
 /* Bordered Button */
 
 .borderedButton {
@@ -293,30 +291,6 @@
 
 .cancelButton {
   margin-right: max(6vw, 20px);
-}
-
-.errorAlertModal {
-  display: grid;
-  grid-template-columns: auto;
-  grid-template-rows: repeat(4, 1fr);
-  padding: 0 var(--basicMargin);
-  margin-top: 10vmin;
-}
-
-.errorAlertModal .modalGridCell.header {
-  color: var(--tamboonDarkOrchid);
-}
-
-.errorAlertModal .modalGridCell.message {
-  color: var(--tamboonDarkGray);
-}
-
-.errorAlertModal pre {
-  width: 100%;
-  padding: 10px;
-  border-radius: var(--radiusSmall);
-  background-color: var(--tamboonPaleOrchid);
-  color: var(--tamboonDarkGray);
 }
 
 @media (max-width: 400px) {

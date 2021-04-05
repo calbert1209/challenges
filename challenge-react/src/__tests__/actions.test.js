@@ -92,20 +92,3 @@ describe('addPayment', () => {
     expect(addPaymentAction.payment).toMatchObject(added);
   });
 });
-
-describe('setError', () => {
-  const error = {
-    title: 'invalid amp setting',
-    message: 'max volume is 10',
-  };
-
-  const setErrorAction = actions.setError(error);
-
-  test('should create action with correct type', () => {
-    expect(setErrorAction.type).toEqual('SET_ERROR');
-  });
-
-  test('should create action with correct payload', () => {
-    expect(setErrorAction.error).toMatchObject(error);
-  });
-});

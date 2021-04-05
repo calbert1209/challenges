@@ -62,15 +62,7 @@ export const DonationOptionCard = ({
       const msg = formatThankYouMessage(paymentAmount, currency, name);
       dispatch(actions.setMessage(msg));
     } catch (error) {
-      // TODO: l10n, also provide different titles/messages per error
-      dispatch(
-        actions.setError({
-          title: 'Error in Payment Processing',
-          message:
-            'Funds were not deducted from your balance, because of the following error:',
-          original: error,
-        })
-      );
+      console.error(error);
     } finally {
       setShowConfirm(false);
     }

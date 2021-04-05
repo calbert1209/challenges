@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { DonationOptionCard } from './DonationOptionCard.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../actions';
-import { ErrorAlertModal } from './Modal.jsx';
 
 const kCharitiesApiUrl = 'http://localhost:3001/charities';
 const kPaymentsApiUrl = 'http://localhost:3001/payments';
@@ -48,16 +47,7 @@ export const App = () => {
       .then((charities) => {
         dispatch(actions.setCharities(charities));
       })
-      .catch((error) => {
-        dispatch(
-          // TODO: l10n
-          actions.setError({
-            title: 'Could not get Charities',
-            message: 'An error occurred while trying to get list of charities',
-            original: error,
-          })
-        );
-      });
+      .catch(console.error);
 
     window
       .fetch(kPaymentsApiUrl)
@@ -67,16 +57,7 @@ export const App = () => {
       .then((payments) => {
         dispatch(actions.setPayments(payments));
       })
-      .catch((error) => {
-        // TODO: l10n
-        dispatch(
-          actions.setError({
-            title: 'Could not get Payments',
-            message: 'An error occurred while trying to get payment history',
-            original: error,
-          })
-        );
-      });
+      .catch(console.error);
   }, []);
 
   useEffect(() => {
@@ -107,7 +88,6 @@ export const App = () => {
             />
           ))}
       </div>
-      <ErrorAlertModal />
     </div>
   );
 };
