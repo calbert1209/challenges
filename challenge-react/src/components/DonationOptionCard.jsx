@@ -20,18 +20,99 @@ const formatThankYouMessage = (amount, currency, charityName) => {
 
 /**
  *
+ * @param {() => void} onClick
+ * @returns JSX.Element
+ */
+const CloseButton = ({ onClick }) => {
+  return (
+    <div className="closeOverlayButton" onClick={onClick}>
+      <img src="./images/close-icon.svg" alt="close icon X" />
+    </div>
+  );
+};
+
+/**
+ *
+ * @param {() => void} onClick
+ * @returns JSX.Element
+ */
+const DonateButton = ({ onClick }) => {
+  return (
+    <button className="borderedButton secondaryButton" onClick={onClick}>
+      {/* TODO: l10n */}
+      {'Donate'}
+    </button>
+  );
+};
+
+/**
+ *
+ * @param {boolean} isOpen flag to trigger dialog opening
+ * @param {number} paymentAmount currently selected amount
+ * @param {string} currency the currency of the payment amount options
+ * @param {(value: number) => void} onClickRadioButton callback to set amount
+ * @param {() => void} onClickPay callback to trigger payment confirmation
+ * @returns
+ */
+const DonateDialogContent = ({
+  isOpen,
+  paymentAmount,
+  currency,
+  onClickRadioButton,
+  onClickPay,
+}) => {
+  return (
+    <div className="dialogContent" data-show={isOpen}>
+      <div className="dialogContentGrid">
+        <div className="paymentAmountGuidance">
+          {/* TODO: l10n */}
+          {`Select the amount to donate (${currency})`}
+        </div>
+        <div className="paymentOptions">
+          {kPaymentAmounts.map((amount) => (
+            <PaymentAmountOption
+              key={amount}
+              amount={amount}
+              onClick={onClickRadioButton}
+              checked={amount === paymentAmount}
+            />
+          ))}
+        </div>
+        <div className="paymentActionButtonContainer">
+          <button className="borderedButton primaryButton" onClick={onClickPay}>
+            {/* TODO: l10n */}
+            {'Pay'}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/**
+ *
+ * @param {number} amount payment amount
+ * @param {() => void} onClick
+ * @param {boolean} checked
+ * @returns JSX.Element
+ */
+const PaymentAmountOption = ({ amount, onClick, checked }) => {
+  return (
+    <div className="paymentAmount" onClick={() => onClick(amount)}>
+      <div data-checked={checked} className="paymentAmountRadioButton" />
+      <div className="paymentAmountText">{amount}</div>
+    </div>
+  );
+};
+
+/**
+ *
  * @param {Charity} option
- * @param {number} donationsReceived total donations received
  * @param {boolean} isOpen triggers open / close animation
  * @param {(number) => void} setOpen callback trigger self open or all closed
  * @returns JSX.Element
  */
-export const DonationOptionCard = ({
-  option,
-  donationsReceived,
-  isOpen,
-  setOpen,
-}) => {
+export const DonationOptionCard = ({ option, isOpen, setOpen }) => {
   const [paymentAmount, setPaymentAmount] = useState(10);
   const [showConfirm, setShowConfirm] = useState(false);
   const dispatch = useDispatch();
@@ -77,111 +158,34 @@ export const DonationOptionCard = ({
   const style = {
     backgroundImage: `url(./images/${image})`,
   };
-  const currencyNote = `(${currency})`;
+
   return (
     <div className="DonationOptionCard" style={style}>
       <div className="cardFrontOverlay" data-open={isOpen}>
         <div className="overlayTitle">
           <div className="charityName">{name}</div>
           {isOpen ? (
-            <CloseButton
-              className="closeOverlayButton"
-              onClick={onClose}
-              fill={'#687389'}
-            />
+            <CloseButton onClick={onClose} />
           ) : (
-            <button className="borderedButton secondaryButton" onClick={onOpen}>
-              {/* TODO: l10n */}
-              {'Donate'}
-            </button>
+            <DonateButton onClick={onOpen} />
           )}
         </div>
-        <div className="dialogContent" data-show={isOpen}>
-          <div className="dialogContentGrid">
-            <div className="donationsSoFar">
-              {/* TODO: l10n */}
-              {`Received so far: ${donationsReceived} ${currencyNote}`}
-            </div>
-            <div className="paymentAmountGuidance">
-              {/* TODO: l10n */}
-              {`Select the amount to donate ${currencyNote}`}
-            </div>
-            <div className="paymentOptions">
-              {kPaymentAmounts.map((amount) => (
-                <PaymentAmountOption
-                  key={amount}
-                  amount={amount}
-                  onClick={onClickRadioButton}
-                  checked={amount === paymentAmount}
-                />
-              ))}
-            </div>
-            <div className="paymentActionButtonContainer">
-              <button
-                className="borderedButton primaryButton"
-                onClick={onClickPay}
-              >
-                {/* TODO: l10n */}
-                {'Pay'}
-              </button>
-            </div>
-          </div>
-        </div>
+        <DonateDialogContent
+          isOpen={isOpen}
+          paymentAmount={paymentAmount}
+          currency={currency}
+          onClickRadioButton={onClickRadioButton}
+          onClickPay={onClickPay}
+        />
       </div>
       <ConfirmDonationModal
         show={showConfirm}
-        onCancel={closeConfirmModal}
-        onConfirm={onClickConfirm}
         amount={paymentAmount}
         currency={currency}
         charityName={name}
+        onCancel={closeConfirmModal}
+        onConfirm={onClickConfirm}
       />
-    </div>
-  );
-};
-
-/**
- *
- * @param {() => void} onClick
- * @param {string} className
- * @param {string} fill the rgb fill color in hex
- * @param {number?} opacity, defaults to 1
- * @returns JSX.Element
- */
-const CloseButton = ({ onClick, className, fill = '#000000', opacity = 1 }) => {
-  return (
-    <div className={className} onClick={onClick}>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        height="24px"
-        viewBox="0 0 24 24"
-        width="24px"
-        fill={fill}
-        opacity={opacity}
-      >
-        <path
-          d={
-            'M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 ' +
-            '6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z'
-          }
-        />
-      </svg>
-    </div>
-  );
-};
-
-/**
- *
- * @param {number} amount payment amount
- * @param {() => void} onClick
- * @param {boolean} checked
- * @returns JSX.Element
- */
-const PaymentAmountOption = ({ amount, onClick, checked }) => {
-  return (
-    <div className="paymentAmount" onClick={() => onClick(amount)}>
-      <div data-checked={checked} className="paymentAmountRadioButton" />
-      <div className="paymentAmountText">{amount}</div>
     </div>
   );
 };

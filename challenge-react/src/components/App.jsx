@@ -23,19 +23,6 @@ export const App = () => {
     return donations.reduce((sum, donation) => sum + donation, 0);
   }, [payments]);
 
-  const donationsPerCharityMap = useMemo(() => {
-    return payments.reduce((map, payment) => {
-      const { charitiesId, amount } = payment;
-      if (charitiesId in map) {
-        map[charitiesId] += amount;
-      } else {
-        map[charitiesId] = amount;
-      }
-
-      return map;
-    }, {});
-  }, [payments]);
-
   const [openOptionId, setOpenOptionId] = useState(-1);
 
   useEffect(() => {
@@ -82,7 +69,6 @@ export const App = () => {
             <DonationOptionCard
               key={charity.id}
               option={charity}
-              donationsReceived={donationsPerCharityMap[charity.id]}
               isOpen={openOptionId === charity.id}
               setOpen={setOpenOptionId}
             />
