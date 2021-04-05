@@ -88,6 +88,9 @@
 .mainHeader {
   width: 100%;
   margin-bottom: var(--basicMargin);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .headerTitle {
