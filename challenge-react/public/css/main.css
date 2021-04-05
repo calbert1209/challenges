@@ -25,10 +25,6 @@
   cursor: pointer;
 }
 
-.borderedButton:lang(ja-JP) {
-  min-width: 45px;
-}
-
 .borderedButton:hover {
   box-shadow: -1px 1px 3px var(--shadowGray);
 }
@@ -56,29 +52,6 @@
 
 .closeOverlayButton {
   cursor: pointer;
-}
-
-.textLinkButton {
-  border: 0;
-  background-color: white;
-  color: var(--tamboonDarkOrchid);
-  width: 50px;
-  padding: 5px;
-  margin: 5px;
-}
-
-.textLinkButton:focus,
-.textLinkButton:hover {
-  color: var(--tamboonOrchid);
-}
-
-.textLinkButton[data-checked='true'] {
-  border-bottom: solid 1px var(--tamboonDarkOrchid);
-}
-
-.textLinkButton[data-checked='true']:focus,
-.textLinkButton[data-checked='true']:hover {
-  border-bottom: solid 1px var(--tamboonOrchid);
 }
 
 /* Modal */
@@ -348,24 +321,15 @@
   color: var(--tamboonDarkGray);
 }
 
-.localeFooter {
-  width: 90vw;
-  margin: 0 5vw;
-}
-
 @media (max-width: 400px) {
   .cardFrontOverlay[data-open='true'] .overlayTitle {
     height: calc(0.25 * var(--cardHeight));
   }
 
   .charityName,
+  .secondaryButton,
   .borderedButton {
     font-size: 12px;
-  }
-
-  .borderedButton:lang(ja-JP) {
-    font-size: 10px;
-    min-width: 52px;
   }
 
   .borderedButton {

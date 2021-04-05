@@ -1,5 +1,4 @@
 import { actionTypes } from './actions';
-import { localeTypes } from './locales/locales.jsx';
 
 export const mainReducer = (state, action) => {
   const _state =
@@ -9,7 +8,6 @@ export const mainReducer = (state, action) => {
           charities: [],
           payments: [],
           error: null,
-          locale: localeTypes.enUS,
         }
       : state;
 
@@ -29,9 +27,6 @@ export const mainReducer = (state, action) => {
 
     case actionTypes.setError:
       return { ..._state, error: action.error };
-
-    case actionTypes.setLocale:
-      return { ..._state, locale: action.locale };
 
     default:
       return _state;

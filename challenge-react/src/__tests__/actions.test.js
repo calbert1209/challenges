@@ -109,12 +109,3 @@ describe('setError', () => {
     expect(setErrorAction.error).toMatchObject(error);
   });
 });
-
-describe('setLocale', () => {
-  const locale = 'ja-JP';
-
-  const setLocaleAction = actions.setLocale(locale);
-
-  expect(setLocaleAction.type).toEqual('SET_LOCALE');
-  expect(setLocaleAction.locale).toEqual(locale);
-});

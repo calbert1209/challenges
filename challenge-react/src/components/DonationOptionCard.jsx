@@ -2,12 +2,24 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { postPayment } from '../post-payment';
 import { actions } from '../actions';
-import { DonationConfirmationModal } from './Modal.jsx';
-import { useLocale } from '../locales/locales.jsx';
+import { ConfirmDonationModal } from './Modal.jsx';
 
 const kPaymentAmounts = [10, 20, 50, 100, 500];
 
 /**
+ * prepare message to be shown in banner
+ * @param {number} amount
+ * @param {string} currency
+ * @param {string} charityName
+ * @returns string
+ */
+const formatThankYouMessage = (amount, currency, charityName) => {
+  // TODO l10n
+  return `Thank you for donating ${amount} ${currency} to ${charityName}`;
+};
+
+/**
+ *
  * @param {Charity} option
  * @param {number} donationsReceived total donations received
  * @param {boolean} isOpen triggers open / close animation
@@ -23,7 +35,6 @@ export const DonationOptionCard = ({
   const [paymentAmount, setPaymentAmount] = useState(10);
   const [showConfirm, setShowConfirm] = useState(false);
   const dispatch = useDispatch();
-  const t = useLocale();
 
   const onOpen = () => {
     setPaymentAmount(10);
@@ -50,14 +61,15 @@ export const DonationOptionCard = ({
       const postedPayment = await postPayment(id, paymentAmount, currency);
 
       dispatch(actions.addPayment(postedPayment));
-      const msg = t.thankYouMsg(paymentAmount, currency, name);
+      const msg = formatThankYouMessage(paymentAmount, currency, name);
       dispatch(actions.setMessage(msg));
     } catch (error) {
-      // TODO: provide different titles/messages per error
+      // TODO: l10n, also provide different titles/messages per error
       dispatch(
         actions.setError({
-          title: t.paymentProcessingErrorAlertTitle,
-          message: t.paymentProcessingErrorAlertMsg,
+          title: 'Error in Payment Processing',
+          message:
+            'Funds were not deducted from your balance, because of the following error:',
           original: error,
         })
       );
@@ -75,7 +87,7 @@ export const DonationOptionCard = ({
   const style = {
     backgroundImage: `url(./images/${image})`,
   };
-
+  const currencyNote = `(${currency})`;
   return (
     <div className="DonationOptionCard" style={style}>
       <div className="cardFrontOverlay" data-open={isOpen}>
@@ -89,17 +101,20 @@ export const DonationOptionCard = ({
             />
           ) : (
             <button className="borderedButton secondaryButton" onClick={onOpen}>
-              {t.donate}
+              {/* TODO: l10n */}
+              {'Donate'}
             </button>
           )}
         </div>
         <div className="dialogContent" data-show={isOpen}>
           <div className="dialogContentGrid">
             <div className="donationsSoFar">
-              {t.donationsSoFar(donationsReceived, currency)}
+              {/* TODO: l10n */}
+              {`Received so far: ${donationsReceived} ${currencyNote}`}
             </div>
             <div className="paymentAmountGuidance">
-              {t.donationAmountGuidance(currency)}
+              {/* TODO: l10n */}
+              {`Select the amount to donate ${currencyNote}`}
             </div>
             <div className="paymentOptions">
               {kPaymentAmounts.map((amount) => (
@@ -116,13 +131,14 @@ export const DonationOptionCard = ({
                 className="borderedButton primaryButton"
                 onClick={onClickPay}
               >
-                {t.pay}
+                {/* TODO: l10n */}
+                {'Pay'}
               </button>
             </div>
           </div>
         </div>
       </div>
-      <DonationConfirmationModal
+      <ConfirmDonationModal
         show={showConfirm}
         onCancel={closeConfirmModal}
         onConfirm={onClickConfirm}
@@ -135,6 +151,7 @@ export const DonationOptionCard = ({
 };
 
 /**
+ *
  * @param {() => void} onClick
  * @param {string} className
  * @param {string} fill the rgb fill color in hex

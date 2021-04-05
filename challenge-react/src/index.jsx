@@ -4,14 +4,12 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { App } from './components/App.jsx';
 import {mainReducer} from './reducers';
-import {createLocalProvider} from './locales/locales.jsx';
 
-const store = createStore(mainReducer);
-const LocaleProvider = createLocalProvider();
+const store = createStore(mainReducer)
 
 render(
   <Provider store={store}>
-      <App LocaleProvider={LocaleProvider}/>
+    <App />
   </Provider>,
   document.getElementById('root')
 );

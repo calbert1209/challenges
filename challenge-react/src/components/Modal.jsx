@@ -2,7 +2,6 @@ import React from 'react';
 import { createPortal } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../actions';
-import { useLocale } from '../locales/locales.jsx';
 
 /**
  *
@@ -38,7 +37,7 @@ const ModalScrim = ({ show, onClickScrim, hasColor, children }) => {
  * @param {string} charityName name of charity to receive donation
  * @returns JSX.Element
  */
-export const DonationConfirmationModal = ({
+export const ConfirmDonationModal = ({
   show,
   onCancel,
   onConfirm,
@@ -46,30 +45,38 @@ export const DonationConfirmationModal = ({
   currency,
   charityName,
 }) => {
-  const t = useLocale();
   return (
     <ModalScrim show={show}>
       <div className="modal confirmPaymentModal">
         <div className="modalGridCell header">
-          <span>{t.donationConfirmationTitle}</span>
+          <span>
+            {/* TODO: l10n */}
+            {'Please confirm your donation'}
+          </span>
         </div>
         <div className="modalGridCell message">
           <span>
-            {t.donationConfirmationMsg(amount, currency, charityName)}
+            {/* TODO: l10n */}
+            {`Donate ${amount} ${currency} to ${charityName}?`}
           </span>
         </div>
         <div className="modalGridCell guidance">
-          <span>{t.donationConfirmationGuidance}</span>
+          <span>
+            {/* TODO: l10n */}
+            {'This transaction will be completed only if you click "Confirm"'}
+          </span>
         </div>
         <div className="modalGridCell actionButtonCell">
           <button
             className="borderedButton secondaryButton cancelButton"
             onClick={onCancel}
           >
-            {t.cancel}
+            {/* TODO: l10n */}
+            {'Cancel'}
           </button>
           <button className="borderedButton primaryButton" onClick={onConfirm}>
-            {t.confirm}
+            {/* TODO: l10n */}
+            {'Confirm'}
           </button>
         </div>
       </div>
@@ -85,7 +92,6 @@ export const DonationConfirmationModal = ({
 export const ErrorAlertModal = () => {
   const error = useSelector((s) => s.error);
   const dispatch = useDispatch();
-  const t = useLocale();
 
   const onClose = () => {
     dispatch(actions.setError(null));
@@ -110,7 +116,8 @@ export const ErrorAlertModal = () => {
         </div>
         <div className="modalGridCell actionButtonCell">
           <button className="borderedButton primaryButton" onClick={onClose}>
-            {t.close}
+            {/* TODO: l10n */}
+            {'Close'}
           </button>
         </div>
       </div>
