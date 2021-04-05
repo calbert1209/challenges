@@ -19,7 +19,7 @@
 - [x] Supporting different screen sizes (responsive).
   - 💬 The layout should work for screens as narrow as 280px.
 - [ ] Write helpers or components unit tests with [jest](https://facebook.github.io/jest/).
-  - 💬 I've written tests all the non-component logic
+  - 💬 I've written tests for the non-component logic
   - 💬 Tests can be executed via the standard `npm run test` or `yarn test`
 
 ## Thank You!
