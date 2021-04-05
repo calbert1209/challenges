@@ -12,6 +12,7 @@
 - [x] Refactor the code to be more readable and enhance reusability.
 - [x] Use [styled-component](https://www.styled-components.com/), [JSS](https://cssinjs.org/) or CSS, for styling part.
   - 💬 I used CSS as that is what I am most comfortable with
+    - I find it helpful to have all the styling in once place
 - [x] Write a nice commit message and order it well.
   - 💬 I like to commit often, so each major change was its own PR, squash-merged to create a single commit
 - [x] Display well in most modern browser (Google Chrome, Safari, Firefox).
