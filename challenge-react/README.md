@@ -36,3 +36,4 @@ This challenge was easy to start, as everything was really well prepared. I can 
 a lot of work into this. It is much more interesting to work on a project that mirrors real-life development work!
 I had a lot of fun. 😁
 
+I'm interested in Elixir, but no professional experience. I'm contemplating trying that challenge next, just for fun. 🤔
